@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5 -->
+<html lang="pt-BR">
+<head>
+    <!-- Meta tags para configuração da página -->
+    <meta charset="UTF-8"> <!-- Define o encoding como UTF-8 para suportar caracteres especiais -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a viewport para dispositivos móveis -->
+    <title>F1 Drive to Survive</title> <!-- Título da página exibido na aba do navegador -->
+
+
+    <!-- Estilos CSS para a página -->
+    <style>
+        body {
+            margin: 0; /* Remove margens padrão do body */
+            padding: 0; /* Remove padding padrão do body */
+            overflow: hidden; /* Esconde barras de rolagem */
+            background-color: #000; /* Define o fundo da página como preto */
+        }
+        canvas {
+            display: block; /* Faz o canvas se comportar como um bloco */
+            margin: 0 auto; /* Centraliza o canvas horizontalmente */
+        }
+    </style>
+</head>
+<body>
+    <!-- Div onde o jogo será renderizado -->
+    <div id="game-container"></div>
+
+
+    <!-- Script do Phaser (biblioteca de jogos) -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+
+
+    <!-- Scripts das cenas do jogo -->
+    <script src="cena1.js"></script> <!-- Cena inicial do jogo -->
+    <script src="cena2.js"></script> <!-- Cena principal do jogo -->
+    <script src="cena3.js"></script> <!-- Cena de Game Over -->
+
+
+    <!-- Configuração do jogo -->
+    <script>
+        // Configurações do jogo usando Phaser
+        const config = {
+            type: Phaser.AUTO, // Define o tipo de renderização (WebGL ou Canvas, automaticamente escolhido)
+            width: window.innerWidth, // Largura do jogo igual à largura da tela do navegador
+            height: window.innerHeight, // Altura do jogo igual à altura da tela do navegador
+            physics: {
+                default: 'arcade', // Usa o sistema de física "arcade" (simples e eficiente)
+                arcade: {
+                    gravity: { y: 0 }, // Define a gravidade como zero (não há gravidade no jogo)
+                    debug: false // Desativa o modo de debug (útil para ver hitboxes durante o desenvolvimento)
+                }
+            },
+            scene: [cena1, cena2, cena3], // Lista de cenas do jogo, na ordem em que serão carregadas
+            parent: 'game-container', // Define o elemento HTML onde o jogo será renderizado
+            scale: {
+                mode: Phaser.Scale.RESIZE, // Ajusta o jogo ao redimensionar a tela
+                autoCenter: Phaser.Scale.CENTER_BOTH // Centraliza o jogo horizontal e verticalmente
+            }
+        };
+
+
+        // Inicializa o jogo com as configurações definidas
+        const game = new Phaser.Game(config);
+
+
+        // Redimensiona o jogo ao mudar o tamanho da janela
+        window.addEventListener('resize', () => {
+            game.scale.resize(window.innerWidth, window.innerHeight); // Ajusta o tamanho do jogo dinamicamente
+        });
+    </script>
+</body>
+</html>
